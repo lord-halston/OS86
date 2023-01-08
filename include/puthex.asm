@@ -31,4 +31,4 @@ puthex_loop_end:		; End of puthex loop
 	popa				; Pop all register values off stack
 	ret
 
-hexStr: db '0x0000', 0
+hexStr: db '0x0000', 0xA, 0xD, 0
