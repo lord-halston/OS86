@@ -19,7 +19,7 @@ int 0x10						; BIOS Video Interrupt
 mov bx, osName					; Move memory address at osName into BX register
 call puts						; Print string stored in BX
 
-mov bx, hexTest
+mov bx, memSize
 call puts
 
 mov ah, 0x02					; AH = 0x02/INT 0x10 - Set Cursor Position
@@ -32,13 +32,22 @@ int 0x12						; BIOS Memory Size Determination
 mov dx, ax
 call puthex
 
+mov bx, equipFlags
+call puts
+
+int 0x11						; BIOS Equipment Determination/Flags
+
+mov dx, ax
+call puthex
+
 jmp $							; Jump to current address (loop indefinitely)
 
 include '../include/puts.asm'
 include '../include/puthex.asm'
 
 osName:	db 'OS86', 0xA, 0xD, 0			
-hexTest: db 'Memory Size: ', 0
+memSize: db 'Memory Size: ', 0
+equipFlags: db 'Installed Equipment: ', 0
 
 times 510-($-$$) db 0			; Pad out 0s until 510th byte
 dw 0xAA55						; Magic number for BIOS boot
