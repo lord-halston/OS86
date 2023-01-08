@@ -2,6 +2,7 @@
 
 puts:							; Print string
 	pusha						; Push all register values onto the stack
+	mov ah, 0x0E				; AH = 0x0E/INT 0x10 - BIOS Teletype Output
 
 putc:							; Print character
 	mov al, [bx]				; Move ASCII chat value at BX into AL
